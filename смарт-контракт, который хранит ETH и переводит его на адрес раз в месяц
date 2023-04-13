@@ -1,0 +1,7 @@
+pragma solidity ^0.8.0;
+contract MonthlyTransfer { address payable public recipient; uint public transferAmount; 
+uint public lastTransfer; 
+constructor(address payable _recipient, uint _transferAmount) { recipient = _recipient; transferAmount = _transferAmount; lastTransfer = block.timestamp; } function transfer() public { require(block.timestamp >= lastTransfer + 30 days, "1 month has not passed yet"); 
+require(address(this).balance >= transferAmount, "insufficient balance"); 
+recipient.transfer(transferAmount); 
+lastTransfer = block.timestamp; } receive() external payable { }}
